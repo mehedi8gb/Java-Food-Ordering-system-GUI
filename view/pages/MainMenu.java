@@ -1,70 +1,85 @@
 package view.pages;
 
 import java.io.*;
-import java.awt.*;
 import java.awt.event.*;
+import java.awt.*;
 import java.util.Scanner;
 import javax.swing.*;
+import orders.LoginForm;
 import orders.Orders;
+import orders.paymentForm;
 import view.Frame;
 
+
 public class MainMenu extends JPanel {
-    // Variables declaration
 
-    private File ordrData = new File("H:\\java\\Food Ordering system\\files\\Orders.txt");
-    private javax.swing.JButton Exit;
-    private javax.swing.JButton FoodMenu;
-    private javax.swing.JPanel Header;
-    private javax.swing.JLabel MainMenuBG;
-    private javax.swing.JButton Orders;
-    private javax.swing.JLabel jLabel4;
-    // Variables declaration END
+    private File ordrData = new File(System.getProperty("user.dir")+"\\files\\Orders.txt");
+    
+//    All Frames and Panels Objects 
+   public static paymentForm PF;
+   public static Orders order;
+   public static FoodMenu FMenu;
+   public static LoginForm LF;
+    
 
-    // All Frames and Panels Objects
-    private Orders orders;
-    private FoodMenu FMenu; 
-
+   
+   private JButton Exit;
+   private JButton FoodMenu;
+   private JPanel Header;
+   private JLabel MainMenuBG;
+   private JButton OrdersBtn;
+   private JLabel MenuLebel;
+   
     public MainMenu() {
+        order = new Orders();
+        PF = new paymentForm();
         FMenu = new FoodMenu();
-        orders = new Orders();
-        FoodMenu = new javax.swing.JButton();
-        Orders = new javax.swing.JButton();
-        Exit = new javax.swing.JButton();
-        Header = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        MainMenuBG = new javax.swing.JLabel();
+        LF = new LoginForm();
+        
+        order.setPaymentForm(PF);
+        FMenu.setPaymentForm(PF);
+        LF.setPaymentForm(PF);
+        PF.setPaymentFormAndOrderObj(order, LF, FMenu);
+       
+         
+        FoodMenu = new JButton();
+        OrdersBtn = new JButton();
+        Exit = new JButton();
+        Header = new JPanel();
+        MenuLebel = new JLabel();
+        MainMenuBG = new JLabel();
 
         setPreferredSize(new Dimension(1280, 720));
         setLayout(null);
 
-        FoodMenu.setIcon(new ImageIcon(getClass().getResource("/images/place order.png")));
+        FoodMenu.setIcon(new ImageIcon(getClass().getResource("/test/images/place order.png"))); 
         FoodMenu.setText("Food Menu");
         FoodMenu.setFocusable(false);
         FoodMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                FoodMenuActionPerformed(e);
+            public void actionPerformed(ActionEvent evt) {
+                FoodMenuActionPerformed(evt);
             }
         });
         add(FoodMenu);
         FoodMenu.setBounds(520, 160, 240, 50);
 
-        Orders.setIcon(new ImageIcon(getClass().getResource("/images/View Bills & Order Placed Details.png")));
-        Orders.setText("Orders");
-        Orders.setFocusable(false);
-        Orders.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                OrdersActionPerformed(e);
+        OrdersBtn.setIcon(new ImageIcon(getClass().getResource("/test/images/View Bills & Order Placed Details.png"))); 
+        OrdersBtn.setText("Orders");
+        OrdersBtn.setFocusable(false);
+        OrdersBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                OrdersBtnActionPerformed(evt);
             }
         });
-        add(Orders);
-        Orders.setBounds(520, 230, 240, 50);
-        
-        Exit.setIcon(new ImageIcon(getClass().getResource("/images/exit.png"))); 
+        add(OrdersBtn);
+        OrdersBtn.setBounds(520, 230, 240, 50);
+
+        Exit.setIcon(new ImageIcon(getClass().getResource("/test/images/exit.png"))); 
         Exit.setText("Exit");
         Exit.setFocusable(false);
         Exit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ExitActionPerformed(e);
+            public void actionPerformed(ActionEvent evt) {
+                ExitActionPerformed(evt);
             }
         });
         add(Exit);
@@ -73,99 +88,104 @@ public class MainMenu extends JPanel {
         Header.setBackground(new Color(51, 51, 51));
         Header.setLayout(null);
 
-        jLabel4.setFont(new Font("Gadugi", 1, 18)); 
-        jLabel4.setForeground(new Color(204, 204, 255));
-        jLabel4.setText("Main Menu");
-        Header.add(jLabel4);
-        jLabel4.setBounds(610, 40, 120, 40);
+        MenuLebel.setFont(new Font("Gadugi", 1, 18)); 
+        MenuLebel.setForeground(new Color(204, 204, 255));
+        MenuLebel.setText("Main Menu");
+        Header.add(MenuLebel);
+        MenuLebel.setBounds(610, 40, 120, 40);
 
         add(Header);
         Header.setBounds(-20, -30, 1300, 90);
 
-        MainMenuBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pureBG.png"))); 
+        MainMenuBG.setIcon(new ImageIcon(getClass().getResource("/test/images/pureBG.png"))); 
         MainMenuBG.setText("jLabel1");
         add(MainMenuBG);
         MainMenuBG.setBounds(0, 0, 1280, 770);
-
+        
+        
     }
 
-    private void FoodMenuActionPerformed(ActionEvent e) {
+
+    private void FoodMenuActionPerformed(ActionEvent evt) {
         setVisible(false);
         FMenu.setVisible(true);
         Frame.MainFrame.add(FMenu);
-
+        
     }
 
-    private void OrdersActionPerformed(ActionEvent e) {
-        try {                                         
+    private void OrdersBtnActionPerformed(ActionEvent evt) {
             setVisible(false);
-            orders.setVisible(true);
-            Frame.MainFrame.add(orders);
-            String [] values;
-            String line; 
+            order.setVisible(true);
+            order.orderPageLogic();
+            order.updateTotalInfoPanel();
+            Frame.MainFrame.add(order);
+            getOrderDatas();
+            
+            
+    }
 
+    private void ExitActionPerformed(ActionEvent evt) {
+        System.exit(0);
+    }
+ 
+    public void getOrderDatas(){
+//  if(Orders.Auth){
+  
+        try {  
 //   getting data from file 
             Scanner inputBuffer = new Scanner(ordrData);
-            try {
+            String line;
+            Double BurgerCost = 0.0, PizzaCost = 0.0;
+            Integer BurgerQty = 0, PizzaQty = 0;
                     while (inputBuffer.hasNext()) {
                     line = inputBuffer.nextLine();
-                    values = line.split(",");
+                    String [] values = line.split(",");
                     
  // order checking condition 
-            if (values[4].equals("pending") && values[1].equals("Burger")) {
-                orders.getItemPanel1().setVisible(true);
-                orders.getOrderNo1().setText(values[0]);
-                orders.getFoodName1().setText(values[1]);
-                orders.getPrice1().setText(values[2]+"$");
-                orders.getQty1().setText(values[3]+" piece");
-                orders.getOrderStatus1().setText(values[4]);
-                orders.getEstimedtedProccessingTime1().setText(values[5]);
+            if (values[5].equals("pending") && values[1].equals("Burger")) {
+                BurgerCost += Double.parseDouble(values[2]);
+                BurgerQty += Integer.parseInt(values[3]);
+                String pis = (BurgerQty > 1) ? " Pieces" : " Piece";
+                order.getItemPanel1().setVisible(true);
+                order.getOrderNo1().setText(values[0]);
+                order.getFoodName1().setText(values[1]);
+                order.getPrice1().setText(BurgerCost+" BDT");
+                order.getQty1().setText(BurgerQty+pis);
+                order.getOrderStatus1().setText(values[5]);
+                order.getEstimedtedProccessingTime1().setText(values[6]);
                 System.out.println(values[0]+" showable");
-            } else {
-                orders.getItemPanel1().setVisible(true);
-                System.out.println(values[0]);
+            } 
+            if(!Orders.Auth){
+                order.getItemPanel2().setVisible(true);
+                System.out.println("Order ID:"+values[0]);
             }
             
 //            pizza component
-     if (values[4].equals("pending") && values[1].equals("Pizza")) {
-                orders.getItemPanel2().setVisible(true);
-                orders.getOrderNo2().setText(values[0]);
-                orders.getFoodName2().setText(values[1]);
-                orders.getPrice2().setText(values[2]+"$");
-                orders.getQty2().setText(values[3]+" piece");
-                orders.getOrderStatus2().setText(values[4]);
-                orders.getEstimedtedProccessingTime2().setText(values[5]);
+     if (values[5].equals("pending") && values[1].equals("Pizza")) {
+                PizzaCost += Double.parseDouble(values[2]);
+                PizzaQty += Integer.parseInt(values[3]);
+                String pis = (PizzaQty > 1) ? " Pieces" : " Piece";
+                order.getItemPanel2().setVisible(true);
+                order.getOrderNo2().setText(values[0]);
+                order.getFoodName2().setText(values[1]);
+                order.getPrice2().setText(PizzaCost+" BDT");
+                order.getQty2().setText(PizzaQty+pis);
+                order.getOrderStatus2().setText(values[5]);
+                order.getEstimedtedProccessingTime2().setText(values[6]);
                 System.out.println(values[0]+" showable");
-            } else {
-                orders.getItemPanel2().setVisible(true);
-                System.out.println(values[0]);
+            } 
+                if(!Orders.Auth){
+                order.getItemPanel2().setVisible(true);
+                System.out.println("Order ID:"+values[0]);
             }
-                    
+      
+            order.setItemAllInfos(BurgerCost, PizzaCost, BurgerQty, PizzaQty);
                 }
-            }
-            
-            catch (Exception ev) {
-                ev.printStackTrace();
-            }
-            inputBuffer.close();
         } catch (FileNotFoundException ex) {
-            System.out.println(ex);
+            System.out.println("getOrderDatas() "+ex);
         }
-    }
-
-    private void ExitActionPerformed(ActionEvent e) {
-       
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        // Windows
-        processBuilder.command("cmd.exe", "/c", "cls && delclass.bat");
-
-        try {
-            processBuilder.start();
-            System.out.println("All genareted Class files cleared!");
-        } catch (IOException ev) {
-            ev.printStackTrace();
-        } 
-      System.exit(0);
+      
+//  }
     }
 
 }

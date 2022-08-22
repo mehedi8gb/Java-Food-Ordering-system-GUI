@@ -8,110 +8,104 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 import view.Frame;
+import view.pages.MainMenu;
+
 
 public class Orders extends JPanel {
 
-   private Color defaultColor = new Color(255,255,255);
-   private Color clickedColor = new Color(139,161,205);
-   private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a"); 
-   private Calendar cal = Calendar.getInstance();
-   protected String EstimetedTIME;
-   protected String TIME;
-   private double total;
-   private int quantity;
-   private int TabbedPanelIndex;  
-   private File orders = new File("H:\\java\\Food Ordering system\\files\\Orders.txt");
-   
+    public static boolean Auth;
 
-   // Variables declaration - do not modify//GEN-BEGIN:variables
-   private JButton BackBtn;
-   private JButton CanceledBtn;
-   private JLabel CancelledOrderLabel;
-   private JPanel CancelledPanel;
-   private JLabel DeleveredOrdersLabel;
-   private JButton DeliveredBtn;
-   private JPanel DeliveredPanel;
-   private JTextField EstimedtedProccessingTime1;
-   private JTextField EstimedtedProccessingTime2;
-   private JTextField EstimedtedProccessingTime3;
-   private JTextField EstimedtedProccessingTime4;
-   private JLabel EstimedtedProccessingTimeLabel1;
-   private JLabel EstimedtedProccessingTimeLabel2;
-   private JLabel EstimedtedProccessingTimeLabel3;
-   private JLabel EstimedtedProccessingTimeLabel4;
-   private JLabel FoodName1;
-   private JLabel FoodName2;
-   private JLabel FoodName3;
-   private JLabel FoodName5;
-   private JPanel Header;
-   private JLabel NameLabel;
-   private JLabel NameLabel1;
-   private JLabel NameLabel2;
-   private JLabel NameLabel4;
-   private JLabel OrderStatusLabel;
-   private JLabel OrderStatusLabel1;
-   private JLabel OrderStatusLabel2;
-   private JLabel OrderStatusLabel4;
-   private JLabel PriceLabel;
-   private JLabel PriceLabel1;
-   private JLabel PriceLabel2;
-   private JLabel PriceLabel4;
-   private JButton ProccessingBtn;
-   private JLabel ProccessingOrdersLabel;
-   private JPanel ProccessingPanel;
-   private JPanel ProccessingPanelTotalInfo;
-   private JLabel QtyLabel;
-   private JLabel QtyLabel1;
-   private JLabel QtyLabel2;
-   private JLabel QtyLabel4;
-   private JSeparator Separator;
-   private JSeparator Separator1;
-   private JSeparator Separator2;
-   private JTabbedPane TabbedPanel;
-   private JLabel currentTime;
-   private JLabel currentTime1;
-   private JLabel currentTime2;
-   private JLabel foodIcon;
-   private JLabel foodIcon1;
-   private JLabel foodIcon2;
-   private JLabel foodIcon4;
-   private JPanel itemPanel1;
-   private JPanel itemPanel2;
-   private JPanel itemPanel3;
-   private JPanel itemPanel4;
-   private JLabel jLabel1;
-   private JLabel jLabel2;
-   private JLabel jLabel3;
-   private JLabel jLabel4;
-   private JLabel jLabel5;
-   private JLabel orderNo1;
-   private JLabel orderNo2;
-   private JLabel orderNo3;
-   private JLabel orderNo5;
-   private JLabel orderNoLabel;
-   private JLabel orderNoLabel1;
-   private JLabel orderNoLabel2;
-   private JLabel orderNoLabel4;
-   private JLabel orderStatus1;
-   private JLabel orderStatus2;
-   private JLabel orderStatus3;
-   private JLabel orderStatus5;
-   private JLabel price1;
-   private JLabel price2;
-   private JLabel price3;
-   private JLabel price5;
-   private JLabel qty1;
-   private JLabel qty2;
-   private JLabel qty3;
-   private JLabel qty5;
-   private JPanel sideBar;
-   private JLabel timeLabel1;
-   private JLabel timeLabel2;
-   private JLabel timeLabel3;
-   // variables declaration END
+    private Color defaultColor = new Color(255, 255, 255);
+    private Color clickedColor = new Color(139, 161, 205);
+    private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+    private Calendar cal = Calendar.getInstance();
+    protected String EstimetedTIME;
+    protected String TIME;
+    public static double total;
+    public static Orders orderObj;
+    public static String Coupons[] = {"OFF10", "OFF20", "OFF30"};
+    public static String CouponStatus;
+    private static int burgerStatus = 0;
+    private static int pizzaStatus = 0;
+    private int quantity;
+    private int TabbedPanelIndex;
+
+    private static File orders = new File(System.getProperty("user.dir")+"\\files\\Orders.txt");
+    private static File users = new File(System.getProperty("user.dir")+"\\files\\Users.txt");
+    private static MainMenu MainMenu;
+
+    private Double BurgerCost, PizzaCost;
+    private Integer BurgerQty, PizzaQty;
+
+    private static paymentForm PF;
+    public static String ID;
 
 
-   public Orders() { 
+    JButton BackBtn;
+    JButton CancelOrderBtn1;
+    JButton CancelOrderBtn2;
+    JButton CanceledBtn;
+    JLabel CancelledOrderLabel;
+    JPanel CancelledPanel;
+    JLabel DeleveredOrdersLabel;
+    JButton DeliveredBtn;
+    JPanel DeliveredPanel;
+    JTextField EstimedtedProccessingTime1;
+    JTextField EstimedtedProccessingTime2;
+    JLabel EstimedtedProccessingTimeLabel1;
+    JLabel EstimedtedProccessingTimeLabel2;
+    JLabel FoodName1;
+    JLabel FoodName2;
+    JPanel Header;
+    JLabel NameLabel;
+    JLabel NameLabel1;
+    JLabel OrderStatusLabel;
+    JLabel OrderStatusLabel1;
+    JLabel PaymentStatusField;
+    JLabel PriceLabel;
+    JLabel PriceLabel1;
+    JButton ProccessingBtn;
+    JLabel ProccessingOrdersLabel;
+    JPanel ProccessingPanel;
+    JLabel QtyLabel;
+    JLabel QtyLabel1;
+    JSeparator Separator;
+    JSeparator Separator1;
+    JSeparator Separator2;
+    JTabbedPane TabbedPanel;
+    JPanel TotalinfoPanel;
+    JLabel currentTime;
+    JLabel currentTime1;
+    JLabel currentTime2;
+    JLabel foodIcon;
+    JLabel foodIcon1;
+    JPanel itemPanel1;
+    JPanel itemPanel2;
+    JLabel jLabel2;
+    JLabel jLabel4;
+    JLabel orderNo1;
+    JLabel orderNo2;
+    JLabel orderNoLabel;
+    JLabel orderNoLabel1;
+    JLabel orderStatus1;
+    JLabel orderStatus2;
+    JButton payBtn;
+    JLabel price1;
+    JLabel price2;
+    JLabel qty1;
+    JLabel qty2;
+    JPanel sideBar;
+    JLabel timeLabel1;
+    JLabel timeLabel2;
+    JLabel timeLabel3;
+    JLabel totalCostField;
+    JLabel totalCostLabel;
+    JLabel totalitemField;
+    JLabel totalitemLabel;
+
+    public Orders() {
+        orderObj = this;
+
         Header = new JPanel();
         jLabel4 = new JLabel();
         sideBar = new JPanel();
@@ -137,6 +131,7 @@ public class Orders extends JPanel {
         OrderStatusLabel = new JLabel();
         EstimedtedProccessingTimeLabel1 = new JLabel();
         EstimedtedProccessingTime1 = new JTextField();
+        CancelOrderBtn1 = new JButton();
         itemPanel2 = new JPanel();
         foodIcon1 = new JLabel();
         PriceLabel1 = new JLabel();
@@ -151,46 +146,22 @@ public class Orders extends JPanel {
         OrderStatusLabel1 = new JLabel();
         EstimedtedProccessingTimeLabel2 = new JLabel();
         EstimedtedProccessingTime2 = new JTextField();
+        CancelOrderBtn2 = new JButton();
         currentTime = new JLabel();
         timeLabel2 = new JLabel();
-        ProccessingPanelTotalInfo = new JPanel();
-        jLabel1 = new JLabel();
+        TotalinfoPanel = new JPanel();
+        totalitemLabel = new JLabel();
+        totalitemField = new JLabel();
+        totalCostLabel = new JLabel();
+        totalCostField = new JLabel();
+        payBtn = new JButton();
+        PaymentStatusField = new JLabel();
         jLabel2 = new JLabel();
-        jLabel3 = new JLabel();
-        jLabel5 = new JLabel();
         DeliveredPanel = new JPanel();
         DeleveredOrdersLabel = new JLabel();
         Separator1 = new JSeparator();
         currentTime1 = new JLabel();
         timeLabel1 = new JLabel();
-        itemPanel3 = new JPanel();
-        foodIcon4 = new JLabel();
-        PriceLabel4 = new JLabel();
-        price5 = new JLabel();
-        NameLabel4 = new JLabel();
-        FoodName5 = new JLabel();
-        orderNoLabel4 = new JLabel();
-        orderNo5 = new JLabel();
-        QtyLabel4 = new JLabel();
-        qty5 = new JLabel();
-        orderStatus5 = new JLabel();
-        OrderStatusLabel4 = new JLabel();
-        EstimedtedProccessingTimeLabel3 = new JLabel();
-        EstimedtedProccessingTime3 = new JTextField();
-        itemPanel4 = new JPanel();
-        foodIcon2 = new JLabel();
-        PriceLabel2 = new JLabel();
-        price3 = new JLabel();
-        NameLabel2 = new JLabel();
-        FoodName3 = new JLabel();
-        orderNoLabel2 = new JLabel();
-        orderNo3 = new JLabel();
-        QtyLabel2 = new JLabel();
-        qty3 = new JLabel();
-        orderStatus3 = new JLabel();
-        OrderStatusLabel2 = new JLabel();
-        EstimedtedProccessingTimeLabel4 = new JLabel();
-        EstimedtedProccessingTime4 = new JTextField();
         CancelledPanel = new JPanel();
         CancelledOrderLabel = new JLabel();
         Separator2 = new JSeparator();
@@ -202,7 +173,7 @@ public class Orders extends JPanel {
         Header.setBackground(new Color(51, 51, 51));
         Header.setLayout(null);
 
-        jLabel4.setFont(new Font("Gadugi", 1, 18)); // NOI18N
+        jLabel4.setFont(new Font("Gadugi", 1, 18)); 
         jLabel4.setForeground(new Color(204, 204, 255));
         jLabel4.setText("Orders");
         Header.add(jLabel4);
@@ -216,8 +187,8 @@ public class Orders extends JPanel {
 
         BackBtn.setText("Back");
         BackBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                BackBtnActionPerformed(e);
+            public void actionPerformed(ActionEvent evt) {
+                BackBtnActionPerformed(evt);
             }
         });
         sideBar.add(BackBtn);
@@ -227,8 +198,8 @@ public class Orders extends JPanel {
         ProccessingBtn.setText("Proccessing");
         ProccessingBtn.setRequestFocusEnabled(false);
         ProccessingBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ProccessingBtnActionPerformed(e);
+            public void actionPerformed(ActionEvent evt) {
+                ProccessingBtnActionPerformed(evt);
             }
         });
         sideBar.add(ProccessingBtn);
@@ -238,8 +209,8 @@ public class Orders extends JPanel {
         DeliveredBtn.setFocusable(false);
         DeliveredBtn.setRequestFocusEnabled(false);
         DeliveredBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DeliveredBtnActionPerformed(e);
+            public void actionPerformed(ActionEvent evt) {
+                DeliveredBtnActionPerformed(evt);
             }
         });
         sideBar.add(DeliveredBtn);
@@ -249,8 +220,8 @@ public class Orders extends JPanel {
         CanceledBtn.setFocusable(false);
         CanceledBtn.setRequestFocusEnabled(false);
         CanceledBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CanceledBtnActionPerformed(e);
+            public void actionPerformed(ActionEvent evt) {
+                CanceledBtnActionPerformed(evt);
             }
         });
         sideBar.add(CanceledBtn);
@@ -268,154 +239,185 @@ public class Orders extends JPanel {
         ProccessingPanel.add(Separator);
         Separator.setBounds(10, 50, 1150, 10);
 
-        itemPanel1.setName(""); // NOI18N
+        itemPanel1.setName(""); 
         itemPanel1.setPreferredSize(new Dimension(730, 230));
+
         itemPanel1.setLayout(null);
 
-        foodIcon.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-        foodIcon.setIcon(new ImageIcon(getClass().getResource("/images/foods/burger.jpg"))); // NOI18N
+        foodIcon.setFont(new Font("Segoe UI", 1, 14)); 
+        foodIcon.setIcon(new ImageIcon(getClass().getResource("/test/images/foods/burger.jpg"))); 
         itemPanel1.add(foodIcon);
         foodIcon.setBounds(60, 30, 250, 160);
 
-        PriceLabel.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        PriceLabel.setFont(new Font("Segoe UI", 1, 13)); 
         PriceLabel.setText("Price:");
         itemPanel1.add(PriceLabel);
         PriceLabel.setBounds(330, 60, 80, 18);
 
-        price1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        price1.setText("10$");
+        price1.setFont(new Font("Segoe UI", 1, 13)); 
+        price1.setText("10 BDT");
         itemPanel1.add(price1);
         price1.setBounds(450, 60, 100, 20);
 
-        NameLabel.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        NameLabel.setFont(new Font("Segoe UI", 1, 13)); 
         NameLabel.setText("Item Name:");
         itemPanel1.add(NameLabel);
         NameLabel.setBounds(330, 30, 80, 18);
 
-        FoodName1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        FoodName1.setFont(new Font("Segoe UI", 1, 13)); 
         FoodName1.setForeground(new Color(255, 102, 102));
         FoodName1.setText("Burger");
         itemPanel1.add(FoodName1);
         FoodName1.setBounds(450, 30, 170, 20);
 
-        orderNoLabel.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        orderNoLabel.setFont(new Font("Segoe UI", 1, 13)); 
         orderNoLabel.setText("Order no:");
         itemPanel1.add(orderNoLabel);
         orderNoLabel.setBounds(330, 120, 80, 18);
 
-        orderNo1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        orderNo1.setFont(new Font("Segoe UI", 1, 13)); 
         orderNo1.setText("00");
         itemPanel1.add(orderNo1);
         orderNo1.setBounds(450, 120, 100, 20);
 
-        QtyLabel.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        QtyLabel.setFont(new Font("Segoe UI", 1, 13)); 
         QtyLabel.setText("Quantity:");
         itemPanel1.add(QtyLabel);
         QtyLabel.setBounds(330, 90, 80, 18);
 
-        qty1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        qty1.setFont(new Font("Segoe UI", 1, 13)); 
         qty1.setText("0");
         itemPanel1.add(qty1);
         qty1.setBounds(450, 90, 90, 20);
 
-        orderStatus1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        orderStatus1.setFont(new Font("Segoe UI", 1, 13)); 
         orderStatus1.setForeground(new Color(51, 153, 0));
         orderStatus1.setText("Currently No Orders found");
         itemPanel1.add(orderStatus1);
         orderStatus1.setBounds(450, 150, 260, 20);
 
-        OrderStatusLabel.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        OrderStatusLabel.setFont(new Font("Segoe UI", 1, 13)); 
         OrderStatusLabel.setText("Order Status:");
         itemPanel1.add(OrderStatusLabel);
         OrderStatusLabel.setBounds(330, 150, 110, 18);
 
-        EstimedtedProccessingTimeLabel1.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        EstimedtedProccessingTimeLabel1.setFont(new Font("Tahoma", 1, 14)); 
         EstimedtedProccessingTimeLabel1.setForeground(new Color(0, 153, 153));
-        EstimedtedProccessingTimeLabel1.setText("Food will be delivered on:");
+        EstimedtedProccessingTimeLabel1.setText("Food will be delivered at:");
         itemPanel1.add(EstimedtedProccessingTimeLabel1);
         EstimedtedProccessingTimeLabel1.setBounds(80, 200, 180, 17);
 
         EstimedtedProccessingTime1.setEditable(false);
-        EstimedtedProccessingTime1.setFont(new Font("Tahoma", 1, 13)); // NOI18N
+        EstimedtedProccessingTime1.setFont(new Font("Tahoma", 1, 13)); 
         EstimedtedProccessingTime1.setText("not set");
         EstimedtedProccessingTime1.setEnabled(false);
+
         itemPanel1.add(EstimedtedProccessingTime1);
         EstimedtedProccessingTime1.setBounds(280, 200, 90, 20);
+
+        CancelOrderBtn1.setBackground(new Color(220, 28, 28));
+        CancelOrderBtn1.setFont(new Font("Tahoma", 1, 13)); 
+        CancelOrderBtn1.setForeground(new Color(255, 255, 255));
+        CancelOrderBtn1.setIcon(new ImageIcon(getClass().getResource("/test/images/close.png"))); 
+        CancelOrderBtn1.setText("Cancel Order");
+        CancelOrderBtn1.setFocusable(false);
+        CancelOrderBtn1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                CancelOrderBtn1ActionPerformed(evt);
+            }
+        });
+        itemPanel1.add(CancelOrderBtn1);
+        CancelOrderBtn1.setBounds(610, 190, 160, 40);
 
         ProccessingPanel.add(itemPanel1);
         itemPanel1.setBounds(10, 60, 780, 240);
 
         itemPanel2.setLayout(null);
 
-        foodIcon1.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-        foodIcon1.setIcon(new ImageIcon(getClass().getResource("/images/foods/pizza.jpg"))); // NOI18N
+        foodIcon1.setFont(new Font("Segoe UI", 1, 14)); 
+        foodIcon1.setIcon(new ImageIcon(getClass().getResource("/test/images/foods/pizza.jpg"))); 
         itemPanel2.add(foodIcon1);
         foodIcon1.setBounds(60, 30, 250, 160);
 
-        PriceLabel1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        PriceLabel1.setFont(new Font("Segoe UI", 1, 13)); 
         PriceLabel1.setText("Price:");
         itemPanel2.add(PriceLabel1);
         PriceLabel1.setBounds(330, 60, 80, 18);
 
-        price2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        price2.setText("40$");
+        price2.setFont(new Font("Segoe UI", 1, 13)); 
+        price2.setText("40 BDT");
         itemPanel2.add(price2);
         price2.setBounds(450, 60, 100, 20);
 
-        NameLabel1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        NameLabel1.setFont(new Font("Segoe UI", 1, 13)); 
         NameLabel1.setText("Item Name:");
         itemPanel2.add(NameLabel1);
         NameLabel1.setBounds(330, 30, 80, 18);
 
-        FoodName2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        FoodName2.setFont(new Font("Segoe UI", 1, 13)); 
         FoodName2.setForeground(new Color(255, 102, 102));
         FoodName2.setText("Pizza");
         itemPanel2.add(FoodName2);
         FoodName2.setBounds(450, 30, 170, 20);
 
-        orderNoLabel1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        orderNoLabel1.setFont(new Font("Segoe UI", 1, 13)); 
         orderNoLabel1.setText("Order no:");
         itemPanel2.add(orderNoLabel1);
         orderNoLabel1.setBounds(330, 120, 80, 18);
 
-        orderNo2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        orderNo2.setFont(new Font("Segoe UI", 1, 13)); 
         orderNo2.setText("00");
         itemPanel2.add(orderNo2);
         orderNo2.setBounds(450, 120, 100, 20);
 
-        QtyLabel1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        QtyLabel1.setFont(new Font("Segoe UI", 1, 13)); 
         QtyLabel1.setText("Quantity:");
         itemPanel2.add(QtyLabel1);
         QtyLabel1.setBounds(330, 90, 80, 18);
 
-        qty2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        qty2.setFont(new Font("Segoe UI", 1, 13)); 
         qty2.setText("0");
         itemPanel2.add(qty2);
         qty2.setBounds(450, 90, 90, 20);
 
-        orderStatus2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        orderStatus2.setFont(new Font("Segoe UI", 1, 13)); 
         orderStatus2.setForeground(new Color(51, 153, 0));
         orderStatus2.setText("Currently No Orders found");
         itemPanel2.add(orderStatus2);
         orderStatus2.setBounds(450, 150, 260, 20);
 
-        OrderStatusLabel1.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
+        OrderStatusLabel1.setFont(new Font("Segoe UI", 1, 13)); 
         OrderStatusLabel1.setText("Order Status:");
         itemPanel2.add(OrderStatusLabel1);
         OrderStatusLabel1.setBounds(330, 150, 110, 18);
 
-        EstimedtedProccessingTimeLabel2.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        EstimedtedProccessingTimeLabel2.setFont(new Font("Tahoma", 1, 14)); 
         EstimedtedProccessingTimeLabel2.setForeground(new Color(0, 153, 153));
-        EstimedtedProccessingTimeLabel2.setText("Food will be delivered on:");
+        EstimedtedProccessingTimeLabel2.setText("Food will be delivered at:");
         itemPanel2.add(EstimedtedProccessingTimeLabel2);
         EstimedtedProccessingTimeLabel2.setBounds(80, 200, 180, 17);
 
         EstimedtedProccessingTime2.setEditable(false);
-        EstimedtedProccessingTime2.setFont(new Font("Tahoma", 1, 13)); // NOI18N
+        EstimedtedProccessingTime2.setFont(new Font("Tahoma", 1, 13)); 
         EstimedtedProccessingTime2.setText("not set");
         EstimedtedProccessingTime2.setEnabled(false);
+    
         itemPanel2.add(EstimedtedProccessingTime2);
         EstimedtedProccessingTime2.setBounds(280, 200, 90, 20);
+
+        CancelOrderBtn2.setBackground(new Color(220, 28, 28));
+        CancelOrderBtn2.setFont(new Font("Tahoma", 1, 13)); 
+        CancelOrderBtn2.setForeground(new Color(255, 255, 255));
+        CancelOrderBtn2.setIcon(new ImageIcon(getClass().getResource("/test/images/close.png"))); 
+        CancelOrderBtn2.setText("Cancel Order");
+        CancelOrderBtn2.setFocusable(false);
+        CancelOrderBtn2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                CancelOrderBtn2ActionPerformed(evt);
+            }
+        });
+        itemPanel2.add(CancelOrderBtn2);
+        CancelOrderBtn2.setBounds(610, 190, 160, 40);
 
         ProccessingPanel.add(itemPanel2);
         itemPanel2.setBounds(10, 320, 780, 240);
@@ -428,26 +430,47 @@ public class Orders extends JPanel {
         ProccessingPanel.add(timeLabel2);
         timeLabel2.setBounds(860, 20, 100, 16);
 
-        ProccessingPanelTotalInfo.setLayout(null);
+        TotalinfoPanel.setLayout(null);
 
-        jLabel1.setText("Totsl Item:");
-        ProccessingPanelTotalInfo.add(jLabel1);
-        jLabel1.setBounds(26, 29, 57, 20);
+        totalitemLabel.setText("Total Item:");
+        TotalinfoPanel.add(totalitemLabel);
+        totalitemLabel.setBounds(30, 30, 120, 20);
 
-        jLabel2.setText("00");
-        ProccessingPanelTotalInfo.add(jLabel2);
-        jLabel2.setBounds(132, 29, 57, 20);
+        totalitemField.setText("00 Piece");
+        TotalinfoPanel.add(totalitemField);
+        totalitemField.setBounds(180, 30, 70, 20);
 
-        jLabel3.setText("Total Costs:");
-        ProccessingPanelTotalInfo.add(jLabel3);
-        jLabel3.setBounds(26, 67, 75, 20);
+        totalCostLabel.setText("Total Costs:");
+        TotalinfoPanel.add(totalCostLabel);
+        totalCostLabel.setBounds(30, 70, 120, 20);
 
-        jLabel5.setText("0$");
-        ProccessingPanelTotalInfo.add(jLabel5);
-        jLabel5.setBounds(132, 67, 57, 20);
+        totalCostField.setText("0.0 BDT");
+        TotalinfoPanel.add(totalCostField);
+        totalCostField.setBounds(180, 70, 70, 20);
 
-        ProccessingPanel.add(ProccessingPanelTotalInfo);
-        ProccessingPanelTotalInfo.setBounds(850, 60, 220, 120);
+        payBtn.setBackground(new Color(0, 162, 237));
+        payBtn.setFont(new Font("Segoe UI", 1, 13)); 
+        payBtn.setForeground(new Color(255, 255, 255));
+        payBtn.setText("Pay Now");
+        payBtn.setFocusable(false);
+        payBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                payBtnActionPerformed(evt);
+            }
+        });
+        TotalinfoPanel.add(payBtn);
+        payBtn.setBounds(30, 180, 210, 40);
+
+        PaymentStatusField.setText("no due");
+        TotalinfoPanel.add(PaymentStatusField);
+        PaymentStatusField.setBounds(180, 110, 70, 20);
+
+        jLabel2.setText("Payment Status:");
+        TotalinfoPanel.add(jLabel2);
+        jLabel2.setBounds(30, 110, 120, 16);
+
+        ProccessingPanel.add(TotalinfoPanel);
+        TotalinfoPanel.setBounds(830, 60, 270, 240);
 
         TabbedPanel.addTab("tab1", ProccessingPanel);
 
@@ -467,158 +490,6 @@ public class Orders extends JPanel {
         timeLabel1.setText("Current Time:");
         DeliveredPanel.add(timeLabel1);
         timeLabel1.setBounds(860, 20, 100, 16);
-
-        itemPanel3.setName(""); // NOI18N
-        itemPanel3.setPreferredSize(new Dimension(730, 230));
-        itemPanel3.setLayout(null);
-
-        foodIcon4.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-        foodIcon4.setIcon(new ImageIcon(getClass().getResource("/images/foods/burger.jpg"))); // NOI18N
-        itemPanel3.add(foodIcon4);
-        foodIcon4.setBounds(60, 30, 250, 160);
-
-        PriceLabel4.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        PriceLabel4.setText("Price:");
-        itemPanel3.add(PriceLabel4);
-        PriceLabel4.setBounds(330, 60, 80, 18);
-
-        price5.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        price5.setText("10$");
-        itemPanel3.add(price5);
-        price5.setBounds(450, 60, 100, 20);
-
-        NameLabel4.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        NameLabel4.setText("Item Name:");
-        itemPanel3.add(NameLabel4);
-        NameLabel4.setBounds(330, 30, 80, 18);
-
-        FoodName5.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        FoodName5.setForeground(new Color(255, 102, 102));
-        FoodName5.setText("Burger");
-        itemPanel3.add(FoodName5);
-        FoodName5.setBounds(450, 30, 170, 20);
-
-        orderNoLabel4.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        orderNoLabel4.setText("Order no:");
-        itemPanel3.add(orderNoLabel4);
-        orderNoLabel4.setBounds(330, 120, 80, 18);
-
-        orderNo5.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        orderNo5.setText("00");
-        itemPanel3.add(orderNo5);
-        orderNo5.setBounds(450, 120, 100, 20);
-
-        QtyLabel4.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        QtyLabel4.setText("Quantity:");
-        itemPanel3.add(QtyLabel4);
-        QtyLabel4.setBounds(330, 90, 80, 18);
-
-        qty5.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        qty5.setText("0");
-        itemPanel3.add(qty5);
-        qty5.setBounds(450, 90, 90, 20);
-
-        orderStatus5.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        orderStatus5.setForeground(new Color(51, 153, 0));
-        orderStatus5.setText("Currently No Orders found");
-        itemPanel3.add(orderStatus5);
-        orderStatus5.setBounds(450, 150, 260, 20);
-
-        OrderStatusLabel4.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        OrderStatusLabel4.setText("Order Status:");
-        itemPanel3.add(OrderStatusLabel4);
-        OrderStatusLabel4.setBounds(330, 150, 110, 18);
-
-        EstimedtedProccessingTimeLabel3.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        EstimedtedProccessingTimeLabel3.setForeground(new Color(0, 153, 153));
-        EstimedtedProccessingTimeLabel3.setText("Food will be delivered on:");
-        itemPanel3.add(EstimedtedProccessingTimeLabel3);
-        EstimedtedProccessingTimeLabel3.setBounds(80, 200, 180, 17);
-
-        EstimedtedProccessingTime3.setEditable(false);
-        EstimedtedProccessingTime3.setFont(new Font("Tahoma", 1, 13)); // NOI18N
-        EstimedtedProccessingTime3.setText("not set");
-        EstimedtedProccessingTime3.setEnabled(false);
-        itemPanel3.add(EstimedtedProccessingTime3);
-        EstimedtedProccessingTime3.setBounds(280, 200, 90, 20);
-
-        DeliveredPanel.add(itemPanel3);
-        itemPanel3.setBounds(10, 60, 780, 240);
-
-        itemPanel4.setLayout(null);
-
-        foodIcon2.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-        foodIcon2.setIcon(new ImageIcon(getClass().getResource("/images/foods/pizza.jpg"))); // NOI18N
-        itemPanel4.add(foodIcon2);
-        foodIcon2.setBounds(60, 30, 250, 160);
-
-        PriceLabel2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        PriceLabel2.setText("Price:");
-        itemPanel4.add(PriceLabel2);
-        PriceLabel2.setBounds(330, 60, 80, 18);
-
-        price3.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        price3.setText("40$");
-        itemPanel4.add(price3);
-        price3.setBounds(450, 60, 100, 20);
-
-        NameLabel2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        NameLabel2.setText("Item Name:");
-        itemPanel4.add(NameLabel2);
-        NameLabel2.setBounds(330, 30, 80, 18);
-
-        FoodName3.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        FoodName3.setForeground(new Color(255, 102, 102));
-        FoodName3.setText("Pizza");
-        itemPanel4.add(FoodName3);
-        FoodName3.setBounds(450, 30, 170, 20);
-
-        orderNoLabel2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        orderNoLabel2.setText("Order no:");
-        itemPanel4.add(orderNoLabel2);
-        orderNoLabel2.setBounds(330, 120, 80, 18);
-
-        orderNo3.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        orderNo3.setText("00");
-        itemPanel4.add(orderNo3);
-        orderNo3.setBounds(450, 120, 100, 20);
-
-        QtyLabel2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        QtyLabel2.setText("Quantity:");
-        itemPanel4.add(QtyLabel2);
-        QtyLabel2.setBounds(330, 90, 80, 18);
-
-        qty3.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        qty3.setText("0");
-        itemPanel4.add(qty3);
-        qty3.setBounds(450, 90, 90, 20);
-
-        orderStatus3.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        orderStatus3.setForeground(new Color(51, 153, 0));
-        orderStatus3.setText("Currently No Orders found");
-        itemPanel4.add(orderStatus3);
-        orderStatus3.setBounds(450, 150, 260, 20);
-
-        OrderStatusLabel2.setFont(new Font("Segoe UI", 1, 13)); // NOI18N
-        OrderStatusLabel2.setText("Order Status:");
-        itemPanel4.add(OrderStatusLabel2);
-        OrderStatusLabel2.setBounds(330, 150, 110, 18);
-
-        EstimedtedProccessingTimeLabel4.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        EstimedtedProccessingTimeLabel4.setForeground(new Color(0, 153, 153));
-        EstimedtedProccessingTimeLabel4.setText("Food will be delivered on:");
-        itemPanel4.add(EstimedtedProccessingTimeLabel4);
-        EstimedtedProccessingTimeLabel4.setBounds(80, 200, 180, 17);
-
-        EstimedtedProccessingTime4.setEditable(false);
-        EstimedtedProccessingTime4.setFont(new Font("Tahoma", 1, 13)); // NOI18N
-        EstimedtedProccessingTime4.setText("not set");
-        EstimedtedProccessingTime4.setEnabled(false);
-        itemPanel4.add(EstimedtedProccessingTime4);
-        EstimedtedProccessingTime4.setBounds(280, 200, 90, 20);
-
-        DeliveredPanel.add(itemPanel4);
-        itemPanel4.setBounds(10, 320, 780, 240);
 
         TabbedPanel.addTab("tab2", DeliveredPanel);
 
@@ -645,55 +516,443 @@ public class Orders extends JPanel {
         TabbedPanel.setBounds(160, 10, 1150, 710);
 
 
-
-       
+        updateTotalInfoPanel();
         ProccessingBtn.setBackground(clickedColor);
         DeliveredBtn.setBackground(defaultColor);
         CanceledBtn.setBackground(defaultColor);
-        BackBtn.setBackground(defaultColor);      
-         setTime(); 
-                 
-    }
-    
+        BackBtn.setBackground(defaultColor);
 
-    public Orders(int orderNo, double totalPrice, String FoodName, int qty) {
-        this.total = totalPrice;
-        this.quantity = qty;
-        
-       //        adding order detailes to the file
-       if (orders.exists()) {  
-          
+        setTime();
+    }
+
+    public void setPaymentForm(paymentForm pf) {
+        PF = pf;
+    }
+
  
-                System.out.println("File already exists.");
-                
-                try{      
-                    FileWriter fileWriter = new FileWriter(orders, true);
+    public Orders(int orderNo, double totalPrice, String userID, String FoodName, int qty, String createdAt, String paymentStatus) {
+//        this.total += totalPrice;
+        this.quantity = qty;
 
-                try (BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-                    bufferedWriter.write(orderNo+","+FoodName+","+totalPrice+","+qty+","+"pending"+","+(FoodName.equals("Burger") ?  setEstimetedTime(10): setEstimetedTime(30))+"\n");
+        //        adding order detailes to the file 
+        if (orders.exists()) {
+
+            System.out.println("File already exists.");
+
+            try {
+                FileWriter fileWriter = new FileWriter(orders, true);
+
+                try ( BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+                    bufferedWriter.write(orderNo + "," + FoodName + "," + totalPrice + "," + qty + "," + ID + "," + "pending" + "," + (FoodName.equals("Burger") ? setEstimetedTime(5) : setEstimetedTime(10)) + "," + createdAt + ",0" + "," + paymentStatus + "\n");
+                    bufferedWriter.close();
+                    fileWriter.close();
                 }
 
-                    System.out.println("Done");
-                } catch(IOException e) {
-                    System.out.println("operation failed!! "+e);
+                System.out.println("Done");
+            } catch (IOException e) {
+                System.out.println("operation failed!! " + e);
+            }
+
+        }
+    }
+
+    public static void setMainMenuRef(MainMenu o) {
+        MainMenu = o;
+    }
+
+    public static Double ApplyCoupon(String c) {
+        String coupon = c.trim();
+        if (Coupons[0].equals(coupon)) {
+            CouponStatus = "You have 10% discount for this " + '"' + coupon + '"' + " coupon ";
+            return total -= (total * 10 / 100);
+
+        } else if (Coupons[1].equals(coupon)) {
+            CouponStatus = "You have 20% discount for this " + '"' + coupon + '"' + " coupon ";
+            return total -= (total * 20 / 100);
+        } else if (Coupons[2].equals(coupon)) {
+            CouponStatus = "You have 30% discount for this " + '"' + coupon + '"' + " coupon ";
+            return total -= (total * 30 / 100);
+        } else {
+            CouponStatus = null;
+            return total;
+        }
+    }
+
+    public void setItemAllInfos(Double BurgerCost, Double PizzaCost, Integer BurgerQty, Integer PizzaQty) {
+        if (Auth) {
+            this.BurgerCost = BurgerCost;
+            this.BurgerQty = BurgerQty;
+            this.PizzaCost = PizzaCost;
+            this.PizzaQty = PizzaQty;
+            Orders.total = PizzaCost + BurgerCost;
+
+            String[] vals = null;
+            try {
+                Scanner IB = new Scanner(users);
+                while (IB.hasNext()) {
+                    String line = IB.nextLine();
+                    vals = line.split(",");
+                    if (vals[0].equals(Orders.ID) && vals[5].equals("paid")) {
+                        PaymentStatusField.setText("paid");
+                        PaymentStatusField.setForeground(Color.green);
+                        Orders.total = Double.parseDouble(vals[4]);
+
+                    } else {
+                        PaymentStatusField.setText("unpaid");
+                        PaymentStatusField.setForeground(Color.red);
+                    }
                 }
-       
-       }
+//            Scanner inputBuffer = new Scanner(orders);
+//            while (inputBuffer.hasNext()) {
+//                String line = inputBuffer.nextLine();
+//                vals = line.split(",");
+//                if (vals[0].equals(ID) && vals[9].equals("paid")) {
+//                    PaymentStatusField.setText("paid");
+//                    PaymentStatusField.setForeground(Color.green);
+//                    Orders.total = Double.parseDouble(vals[2]);
+//                    
+//                } else {
+//                    PaymentStatusField.setText("unpaid");
+//                    PaymentStatusField.setForeground(Color.red);
+//                }
+//            }
+                totalCostField.setText(String.valueOf(Orders.total) + " BDT");
+                totalitemField.setText(String.valueOf(BurgerQty + PizzaQty));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
     }
-    
-    public String setEstimetedTime(int times){
-        cal.add(Calendar.MINUTE,times);
-        EstimetedTIME = timeFormat.format(cal.getTime()); 
-        return EstimetedTIME;   
+
+    private String[] getOrderData() {
+        String[] vals = null;
+        try {
+//   getting data from file 
+            Scanner inputBuffer = new Scanner(orders);
+            try {
+                while (inputBuffer.hasNext()) {
+                    String line = inputBuffer.nextLine();
+                    vals = line.split(",");
+                    if (vals[5].equals("pending") && vals[1].equals("Burger")) {
+                        burgerStatus = 1;
+                    } else if (vals[5].equals("delivered") && vals[1].equals("Burger")) {
+                        burgerStatus = 2;
+                    } else if (vals[5].equals("cancelled") && vals[1].equals("Burger")) {
+                        burgerStatus = 3;
+                    }
+
+                    if (vals[5].equals("pending") && vals[1].equals("Pizza")) {
+                        pizzaStatus = 1;
+                    } else if (vals[5].equals("delivered") && vals[1].equals("Pizza")) {
+                        pizzaStatus = 2;
+                    } else if (vals[5].equals("cancelled") && vals[1].equals("Pizza")) {
+                        pizzaStatus = 3;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+        }
+        return vals;
     }
-    public void setTime(){        
+
+    public void removeLineFromFile(String lineToRemove) {
+        try {
+
+            File tempFile = new File(System.getProperty("user.dir")+"\\files\\Temp.txt");
+            File inputFile = new File(System.getProperty("user.dir")+"\\files\\Orders.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            String currentLine;
+            String currentData;
+            String orderCancelledAt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            while ((currentLine = reader.readLine()) != null) {
+                // trim newline when comparing with lineToRemove
+                currentLine = currentLine.trim();
+                String[] trimLine = currentLine.split(",");
+                if (trimLine[0].equals(lineToRemove.trim())) {
+                    trimLine[5] = "cancelled";
+                    writer.write(trimLine[0] + "," + trimLine[1] + "," + trimLine[2] + "," + trimLine[3] + "," + trimLine[4] + "," + "cancelled" + "," + trimLine[6] + "," + trimLine[7] + "," + orderCancelledAt + ",unpaid" + "\n");
+                    continue;
+                }
+                writer.write(currentLine + "\n");
+            }
+            writer.close();
+            reader.close();
+            BufferedWriter BW = new BufferedWriter(new FileWriter(inputFile));
+            BufferedReader BR = new BufferedReader(new FileReader(tempFile));
+
+            while ((currentData = BR.readLine()) != null) {
+                BW.write(currentData + "\n");
+            }
+
+            BW.close();
+            BR.close();
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public String setEstimetedTime(int times) {
+        cal.add(Calendar.MINUTE, times);
+        EstimetedTIME = timeFormat.format(cal.getTime());
+        return EstimetedTIME;
+    }
+
+    private void setTime() {
         java.util.Timer timer = new java.util.Timer();
-        // Clock task = ;         
-        timer.schedule(new Clock(this), 0,1000);
+        Clock task = new Clock(this);
+        timer.schedule(task, 0, 1000);
+    }
+
+    public void orderPageLogic() {
+//        if (Auth) {
+        String v[] = getOrderData();
+
+        //   Burger order page logics 
+        switch (burgerStatus) {
+            case 1 -> {
+                ProccessingPanel.add(itemPanel1);
+                orderStatus1.setForeground(new Color(51, 153, 0));
+                CancelOrderBtn1.setEnabled(true);
+                CancelOrderBtn1.setVisible(true);
+                payBtn.setEnabled(true);
+            }
+            case 2 -> {
+                ProccessingPanel.remove(itemPanel1);
+                DeliveredPanel.add(itemPanel1);
+                payBtn.setEnabled(true);
+            }
+            case 3 -> {
+                ProccessingPanel.remove(itemPanel1);
+                DeliveredPanel.remove(itemPanel1);
+                orderStatus1.setText("cancelled");
+                orderStatus1.setForeground(Color.RED);
+                CancelOrderBtn1.setEnabled(false);
+            }
+            default -> {
+                orderStatus1.setText("no active order found");
+                EstimedtedProccessingTime1.setText("not set");
+                CancelOrderBtn1.setEnabled(false);
+                payBtn.setEnabled(false);
+            }
+        }
+        //  Pizza logics 
+        switch (pizzaStatus) {
+            case 1 -> {
+                ProccessingPanel.add(itemPanel2);
+                orderStatus2.setForeground(new Color(51, 153, 0));
+                CancelOrderBtn2.setEnabled(true);
+                CancelOrderBtn2.setVisible(true);
+                payBtn.setEnabled(true);
+            }
+            case 2 -> {
+                ProccessingPanel.remove(itemPanel2);
+                DeliveredPanel.add(itemPanel2);
+                payBtn.setEnabled(true);
+            }
+            case 3 -> {
+                ProccessingPanel.remove(itemPanel2);
+                DeliveredPanel.remove(itemPanel2);
+                orderStatus2.setText("cancelled");
+                orderStatus2.setForeground(Color.RED);
+                CancelOrderBtn2.setEnabled(false);
+                payBtn.setEnabled(false);
+            }
+            default -> {
+                orderStatus2.setText("no active order found");
+                EstimedtedProccessingTime2.setText("not set");
+                CancelOrderBtn2.setEnabled(false);
+                payBtn.setEnabled(false);
+            }
+        }
+//        }
+    }
+
+    private void cancelPageLogic() {
+        String v[] = getOrderData();
+        switch (pizzaStatus) {
+            case 1 -> {
+                CancelledPanel.remove(itemPanel2);
+                DeliveredPanel.remove(itemPanel2);
+            }
+            case 2 -> {
+                CancelledPanel.remove(itemPanel2);
+                ProccessingPanel.remove(itemPanel2);
+            }
+            case 3 -> {
+                CancelledPanel.add(itemPanel2);
+                orderStatus2.setText("order cancelled");
+                orderStatus2.setForeground(Color.RED);
+                orderNo2.setText(v[0]);
+                price2.setText(v[2]);
+                qty2.setText(v[3]);
+
+                EstimedtedProccessingTime2.setText("not set");
+                CancelOrderBtn2.setVisible(false);
+            }
+            default -> {
+                orderStatus2.setText("no active order found");
+                EstimedtedProccessingTime2.setText("not set");
+                CancelOrderBtn2.setEnabled(false);
+            }
+        }
+
+        switch (burgerStatus) {
+            case 1 -> {
+                CancelledPanel.remove(itemPanel1);
+            }
+            case 2 -> {
+                CancelledPanel.remove(itemPanel1);
+            }
+            case 3 -> {
+                CancelledPanel.add(itemPanel1);
+                orderStatus1.setText("order cancelled!");
+                orderStatus1.setForeground(Color.RED);
+                orderNo1.setText(v[0]);
+                price1.setText(v[2]);
+                qty1.setText(v[3]);
+                CancelOrderBtn1.setVisible(false);
+            }
+            default -> {
+                orderStatus1.setText("no active order found");
+                EstimedtedProccessingTime1.setText("not set");
+                CancelOrderBtn1.setEnabled(false);
+            }
+        }
+    }
+
+    private void deliveredPageLogic() {
+        String v[] = getOrderData();
+        switch (pizzaStatus) {
+            case 1 -> {
+                CancelledPanel.remove(itemPanel2);
+                DeliveredPanel.remove(itemPanel2);
+                ProccessingPanel.add(itemPanel2);
+            }
+            case 2 -> {
+                DeliveredPanel.add(itemPanel2);
+                CancelledPanel.remove(itemPanel2);
+                ProccessingPanel.remove(itemPanel2);
+
+                orderStatus2.setText("food already delivered");
+                orderStatus2.setForeground(Color.GREEN);
+
+                orderNo2.setText(v[0]);
+                price2.setText(v[2]);
+                qty2.setText(v[3]);
+//                orderStatus2.setText(v[5]);
+                EstimedtedProccessingTime2.setText(v[6]);
+                CancelOrderBtn1.setVisible(false);
+            }
+            case 3 -> {
+                CancelledPanel.add(itemPanel2);
+                ProccessingPanel.remove(itemPanel2);
+                DeliveredPanel.remove(itemPanel2);
+            }
+            default -> {
+                orderStatus2.setText("no active order found");
+                EstimedtedProccessingTime2.setText("not set");
+                CancelOrderBtn2.setEnabled(false);
+            }
+        }
+
+        switch (burgerStatus) {
+            case 1 -> {
+                CancelledPanel.remove(itemPanel1);
+                DeliveredPanel.remove(itemPanel1);
+                ProccessingPanel.add(itemPanel1);
+            }
+            case 2 -> {
+                DeliveredPanel.add(itemPanel1);
+                CancelledPanel.remove(itemPanel1);
+                ProccessingPanel.remove(itemPanel1);
+
+                orderStatus1.setText("food already delivered");
+                orderStatus1.setForeground(Color.GREEN);
+                orderNo1.setText(v[0]);
+                price1.setText(v[2]);
+                qty1.setText(v[3]);
+//                orderStatus1.setText(v[5]);
+                EstimedtedProccessingTime1.setText(v[6]);
+                CancelOrderBtn1.setVisible(false);
+            }
+            case 3 -> {
+                CancelledPanel.add(itemPanel1);
+                ProccessingPanel.remove(itemPanel1);
+                DeliveredPanel.remove(itemPanel1);
+            }
+            default -> {
+                orderStatus1.setText("no active order found");
+                EstimedtedProccessingTime1.setText("not set");
+                CancelOrderBtn1.setEnabled(false);
+            }
+        }
+    }
+
+    public void updateTotalInfoPanel() {
+//        if (Auth) {
+        BufferedReader BW;
+
+        try {
+            this.quantity = 0;
+            BW = new BufferedReader(new FileReader(orders));
+            String line;
+            String[] Split;
+//            Double BurgerCost = 0.0, PizzaCost = 0.0;
+//            Integer BurgerQty = 0, PizzaQty = 0;
+            while ((line = BW.readLine()) != null) {
+                Split = line.split(",");
+                if (Split[5].trim().equals("pending") || Split[5].trim().equals("delivered")) {
+                    this.quantity += Integer.parseInt(Split[3].trim());
+                    PaymentStatusField.setText(Split[9]);
+
+//                    BurgerCost += Double.parseDouble(Split[2]);
+//                    BurgerQty += Integer.parseInt(Split[3]);
+//                    String pis = (BurgerQty > 1) ? " Pieces" : " Piece";
+//                    FoodName1.setText(Split[1]);
+//                    price1.setText(BurgerCost + " BDT");
+//                    qty1.setText(BurgerQty + pis);
+//                    orderStatus1.setText(Split[5]);
+//                    EstimedtedProccessingTime1.setText(Split[6]);
+//
+//                    PizzaCost += Double.parseDouble(Split[2]);
+//                    PizzaQty += Integer.parseInt(Split[3]);
+//                    String Pis = (PizzaQty > 1) ? " Pieces" : " Piece";
+//                    itemPanel2.setVisible(true);
+//                    orderNo2.setText(Split[0]);
+//                    FoodName2.setText(Split[1]);
+//                    price2.setText(PizzaCost + " BDT");
+//                    qty2.setText(PizzaQty + Pis);
+//                    orderStatus2.setText(Split[5]);
+//                    EstimedtedProccessingTime2.setText(Split[6]);
+
+                    System.out.println("ID-" + Split[0]);
+                    System.out.println("esisted-ID-" + ID);
+                    System.out.println("QTY-" + Split[3]);
+                }
+
+            }
+            BW.close();
+            String pis = (this.quantity > 1) ? " Pieces" : " Piece";
+            totalitemField.setText(String.valueOf(this.quantity) + pis);
+            totalCostField.setText(String.valueOf(Orders.total));
+
+        } catch (Exception ex) {
+            System.out.println("System sucks at: " + ex);
+        }
+//        }
     }
 
 
-    private void BackBtnActionPerformed(ActionEvent e) {
+
+    private void BackBtnActionPerformed(ActionEvent evt) {
         this.setVisible(false);
         Frame.Menu.setVisible(true);
 //        ProccessingBtn.setBackground(defaultColor);
@@ -701,51 +960,141 @@ public class Orders extends JPanel {
 //        CanceledBtn.setBackground(defaultColor);
     }
 
-    private void CanceledBtnActionPerformed(ActionEvent e) {
-        TabbedPanel.setSelectedIndex(2);
+    private void CanceledBtnActionPerformed(ActionEvent evt) {
         this.TabbedPanelIndex = 2;
+        TabbedPanel.setSelectedIndex(2);
+        updateTotalInfoPanel();
+        cancelPageLogic();
         ProccessingBtn.setBackground(defaultColor);
         DeliveredBtn.setBackground(defaultColor);
         CanceledBtn.setBackground(clickedColor);
         BackBtn.setBackground(defaultColor);
     }
 
-    private void ProccessingBtnActionPerformed(ActionEvent e) {
+    private void ProccessingBtnActionPerformed(ActionEvent evt) {
+        MainMenu.getOrderDatas();
+        updateTotalInfoPanel();
         TabbedPanel.setSelectedIndex(0);
+        orderPageLogic();
         this.TabbedPanelIndex = 0;
         ProccessingBtn.setBackground(clickedColor);
         DeliveredBtn.setBackground(defaultColor);
         CanceledBtn.setBackground(defaultColor);
         BackBtn.setBackground(defaultColor);
-    }
+    }//GEN-LAST:event_ProccessingBtnActionPerformed
 
-    private void DeliveredBtnActionPerformed(ActionEvent e) {
+    private void DeliveredBtnActionPerformed(ActionEvent evt) {
         TabbedPanel.setSelectedIndex(1);
+        updateTotalInfoPanel();
         this.TabbedPanelIndex = 1;
+        deliveredPageLogic();
         ProccessingBtn.setBackground(defaultColor);
         DeliveredBtn.setBackground(clickedColor);
         CanceledBtn.setBackground(defaultColor);
         BackBtn.setBackground(defaultColor);
     }
 
+    private void CancelOrderBtn1ActionPerformed(ActionEvent evt) {
 
-//  setter and getter methods 
+        if (orders.exists()) {
+//   getting data from file 
+            Scanner inputBuffer;
+            try {
+                inputBuffer = new Scanner(orders);
+
+                while (inputBuffer.hasNext()) {
+                    String line = inputBuffer.nextLine();
+                    String[] values = line.split(",");
+
+                    this.itemPanel1.setVisible(true);
+                    // order checking condition 
+                    if (values[5].equals("pending") && values[1].equals("Burger")) {
+                        removeLineFromFile(values[0]);
+                        this.orderNo1.setText("0");
+                        this.FoodName1.setText("Burger");
+                        this.price1.setText(MainMenu.FMenu.getBurgerPrice() + " BDT");
+                        this.qty1.setText("0 piece");
+                        this.orderStatus1.setText("Order Cancelled!");
+                        this.EstimedtedProccessingTime1.setText("not set");
+                        CancelOrderBtn1.setEnabled(false);
+                        orderStatus1.setForeground(Color.RED);
+                    }
+
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+        }
+
+    }
+
+    private void CancelOrderBtn2ActionPerformed(ActionEvent evt) {
+        if (orders.exists()) {
+//   getting data from file 
+            Scanner inputBuffer;
+            try {
+                inputBuffer = new Scanner(orders);
+
+                while (inputBuffer.hasNext()) {
+                    String line = inputBuffer.nextLine();
+                    String[] values = line.split(",");
+                    this.itemPanel2.setVisible(true);
+
+//            pizza component
+                    if (values[5].equals("pending") && values[1].equals("Pizza")) {
+                        removeLineFromFile(values[0]);
+                        this.itemPanel2.setVisible(true);
+                        this.orderNo2.setText("0");
+                        this.FoodName2.setText("Pizza");
+                        this.price2.setText(MainMenu.FMenu.getPizzaPrice() + " BDT");
+                        this.qty2.setText("0 piece");
+                        this.orderStatus2.setText("Order Cancelled!");
+                        CancelOrderBtn2.setEnabled(false);
+                        orderStatus2.setForeground(Color.RED);
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    private void payBtnActionPerformed(ActionEvent evt) {
+
+        PF.setVisible(true);
+        if (Orders.Auth) {
+            PF.getAuthUserData(Orders.ID);
+            if (paymentForm.userPaymentStatus.equals("paid")) {
+                PF.getLoginBtn().setEnabled(false);
+            } else {
+                PF.getLoginBtn().setEnabled(true);
+            }
+        }
+        PF.tryAuth();
+
+    }
+
 
    
-    public double getTotal() {
+
+    public static double getTotal() {
         return total;
     }
+
     public int getTabbedPanelIndex() {
         return this.TabbedPanelIndex;
     }
-    
+
     public JPanel getItemPanel1() {
         return itemPanel1;
     }
+
     public JPanel getItemPanel2() {
         return itemPanel2;
     }
-    
+
     public JLabel getPrice1() {
         return price1;
     }
@@ -761,10 +1110,11 @@ public class Orders extends JPanel {
     public JLabel getQty1() {
         return qty1;
     }
+
     public JLabel getOrderStatus1() {
         return orderStatus1;
     }
-    
+
     public JLabel getPrice2() {
         return price2;
     }
@@ -780,12 +1130,15 @@ public class Orders extends JPanel {
     public JLabel getQty2() {
         return qty2;
     }
+
     public JLabel getOrderStatus2() {
         return orderStatus2;
     }
+
     public JTextField getEstimedtedProccessingTime1() {
         return EstimedtedProccessingTime1;
     }
+
     public JTextField getEstimedtedProccessingTime2() {
         return EstimedtedProccessingTime2;
     }
@@ -809,15 +1162,37 @@ public class Orders extends JPanel {
     public Color getClickedColor() {
         return clickedColor;
     }
+
     public JLabel getCurrentTime() {
         return currentTime;
     }
+
     public JLabel getCurrentTime1() {
         return currentTime1;
     }
+
     public JLabel getCurrentTime2() {
         return currentTime2;
     }
-    
-  
+
+    public static boolean isAuth() {
+        return Auth;
+    }
+
+    public static void setAuth(boolean aAuth) {
+        Auth = aAuth;
+    }
+
+    public static String[] getCoupons() {
+        return Coupons;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public static void setID(String aID) {
+        ID = aID;
+    }
+
 }
