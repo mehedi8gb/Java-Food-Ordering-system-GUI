@@ -11,7 +11,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/mehedi8gb/Java-Food-Ordering-system-GUI">
-    <img src="/images/logo_filled.png" alt="Logo" height="80">
+    <img src="/images/logo-filled.png" alt="Logo" height="80">
   </a>
 
   <h3 align="center">Java Food Ordering system GUI</h3>
