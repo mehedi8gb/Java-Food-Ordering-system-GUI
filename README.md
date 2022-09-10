@@ -11,13 +11,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/mehedi8gb/Java-Food-Ordering-system-GUI">
-    <img src="/public/img/Java-Food-Ordering-system-GUI.png" alt="Logo" height="80">
+    <img src="/images/logo.png" alt="Logo" height="80">
   </a>
 
   <h3 align="center">Java Food Ordering system GUI</h3>
 
   <p align="center">
-    An awesome IT Company Website!
+    Almost complete food ordering system for modern restuarents.
     <br />
     <a href="https://github.com/mehedi8gb/Java-Food-Ordering-system-GUI"><strong>Explore the docs »</strong></a>
     <br />
@@ -71,9 +71,6 @@
 
 ### Built With Java
 
-
-<!-- * [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/) -->
 * [Java](https://www.oracle.com/java/technologies/downloads/#:~:text=Java%20SE%20Development%20Kit%2018.0.2.1%20downloads)
 
 
@@ -89,21 +86,29 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-your local machine needs Java
+your local machine needs
 **[Java](https://www.oracle.com/java/technologies/downloads/#:~:text=Java%20SE%20Development%20Kit%2018.0.2.1%20downloads)**
 
 ### Project Setup
 
 1. Clone the repository
    ```sh
-   git clone mehedi8gb/Java-Food-Ordering-system-GUI.git
+   git clone github.com/mehedi8gb/Java-Food-Ordering-system-GUI.git
    ```
-2. Run CMD on the project root folder.
+2. Open CMD on the project root folder.
 3. Run 
    ```sh
    javac RMS.java && java RMS
    ```
 4. If any problem please run "delclass.bat" file.
+5. Use these credentials for login:
+ ```sh
+   table no: 5
+   password: 123
+   
+   table no: 6
+   password: 123
+   ``` 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

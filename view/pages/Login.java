@@ -37,6 +37,7 @@ public class Login extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Login Panel");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/images/icon.png"));  
         setBounds(new Rectangle(0, 0, 0, 0));
         setName("Login");
         setSize(new Dimension(0, 0));
@@ -109,7 +110,7 @@ public class Login extends JFrame {
         getContentPane().add(btnLogin);
         btnLogin.setBounds(230, 390, 410, 50);
 
-        Background.setIcon(new ImageIcon(getClass().getResource("/test/images/pureBG.png")));
+        Background.setIcon(new ImageIcon(getClass().getResource("/images/pureBG.png")));
         getContentPane().add(Background);
         Background.setBounds(0, -190, 1320, 1100);
 

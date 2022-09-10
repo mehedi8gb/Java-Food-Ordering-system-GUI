@@ -57,6 +57,7 @@ public class Orders extends JPanel {
     JLabel FoodName1;
     JLabel FoodName2;
     JPanel Header;
+    JLabel logoLabel;
     JLabel NameLabel;
     JLabel NameLabel1;
     JLabel OrderStatusLabel;
@@ -107,6 +108,7 @@ public class Orders extends JPanel {
         orderObj = this;
 
         Header = new JPanel();
+        logoLabel = new JLabel();
         ordersLabel = new JLabel();
         sideBar = new JPanel();
         BackBtn = new JButton();
@@ -177,6 +179,9 @@ public class Orders extends JPanel {
         ordersLabel.setForeground(new Color(204, 204, 255));
         ordersLabel.setText("Orders");
         Header.add(ordersLabel);
+        logoLabel.setIcon(new ImageIcon(getClass().getResource("/images/logo-filled.png")));
+        logoLabel.setBounds(0, 40, 340, 50);
+        Header.add(logoLabel);
         ordersLabel.setBounds(620, 50, 70, 30);
 
         add(Header);
@@ -186,15 +191,18 @@ public class Orders extends JPanel {
         sideBar.setLayout(null);
 
         BackBtn.setText("Back");
+        BackBtn.setFocusable(false);
+        BackBtn.setIcon(new ImageIcon(getClass().getResource("/images/back.png")));
         BackBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 BackBtnActionPerformed(evt);
             }
         });
         sideBar.add(BackBtn);
-        BackBtn.setBounds(10, 180, 130, 40);
+        BackBtn.setBounds(10, 180, 140, 40);
 
         ProccessingBtn.setBackground(new Color(139, 161, 205));
+        ProccessingBtn.setIcon(new ImageIcon(getClass().getResource("/images/crusher.png")));
         ProccessingBtn.setText("Proccessing");
         ProccessingBtn.setRequestFocusEnabled(false);
         ProccessingBtn.addActionListener(new ActionListener() {
@@ -203,9 +211,10 @@ public class Orders extends JPanel {
             }
         });
         sideBar.add(ProccessingBtn);
-        ProccessingBtn.setBounds(10, 30, 130, 40);
+        ProccessingBtn.setBounds(10, 30, 140, 40);
 
         DeliveredBtn.setText("Delivered");
+        DeliveredBtn.setIcon(new ImageIcon(getClass().getResource("/images/package-delivered.png")));
         DeliveredBtn.setFocusable(false);
         DeliveredBtn.setRequestFocusEnabled(false);
         DeliveredBtn.addActionListener(new ActionListener() {
@@ -214,9 +223,10 @@ public class Orders extends JPanel {
             }
         });
         sideBar.add(DeliveredBtn);
-        DeliveredBtn.setBounds(10, 80, 130, 40);
+        DeliveredBtn.setBounds(10, 80, 140, 40);
 
         CanceledBtn.setText("Canceled");
+        CanceledBtn.setIcon(new ImageIcon(getClass().getResource("/images/cancel.png")));
         CanceledBtn.setFocusable(false);
         CanceledBtn.setRequestFocusEnabled(false);
         CanceledBtn.addActionListener(new ActionListener() {
@@ -225,7 +235,7 @@ public class Orders extends JPanel {
             }
         });
         sideBar.add(CanceledBtn);
-        CanceledBtn.setBounds(10, 130, 130, 40);
+        CanceledBtn.setBounds(10, 130, 140, 40);
 
         add(sideBar);
         sideBar.setBounds(0, 50, 160, 720);
@@ -245,7 +255,7 @@ public class Orders extends JPanel {
         itemPanel1.setLayout(null);
 
         foodIcon.setFont(new Font("Segoe UI", 1, 14)); 
-        foodIcon.setIcon(new ImageIcon(getClass().getResource("/test/images/foods/burger.jpg"))); 
+        foodIcon.setIcon(new ImageIcon(getClass().getResource("/images/foods/burger.jpg"))); 
         itemPanel1.add(foodIcon);
         foodIcon.setBounds(60, 30, 250, 160);
 
@@ -294,7 +304,7 @@ public class Orders extends JPanel {
         orderStatus1.setForeground(new Color(51, 153, 0));
         orderStatus1.setText("Currently No Orders found");
         itemPanel1.add(orderStatus1);
-        orderStatus1.setBounds(450, 150, 260, 20);
+        orderStatus1.setBounds(440, 130, 260, 70);
 
         OrderStatusLabel.setFont(new Font("Segoe UI", 1, 13)); 
         OrderStatusLabel.setText("Order Status:");
@@ -318,7 +328,7 @@ public class Orders extends JPanel {
         CancelOrderBtn1.setBackground(new Color(220, 28, 28));
         CancelOrderBtn1.setFont(new Font("Tahoma", 1, 13)); 
         CancelOrderBtn1.setForeground(new Color(255, 255, 255));
-        CancelOrderBtn1.setIcon(new ImageIcon(getClass().getResource("/test/images/close.png"))); 
+        CancelOrderBtn1.setIcon(new ImageIcon(getClass().getResource("/images/close.png"))); 
         CancelOrderBtn1.setText("Cancel Order");
         CancelOrderBtn1.setFocusable(false);
         CancelOrderBtn1.addActionListener(new ActionListener() {
@@ -335,7 +345,7 @@ public class Orders extends JPanel {
         itemPanel2.setLayout(null);
 
         foodIcon1.setFont(new Font("Segoe UI", 1, 14)); 
-        foodIcon1.setIcon(new ImageIcon(getClass().getResource("/test/images/foods/pizza.jpg"))); 
+        foodIcon1.setIcon(new ImageIcon(getClass().getResource("/images/foods/pizza.jpg"))); 
         itemPanel2.add(foodIcon1);
         foodIcon1.setBounds(60, 30, 250, 160);
 
@@ -384,7 +394,8 @@ public class Orders extends JPanel {
         orderStatus2.setForeground(new Color(51, 153, 0));
         orderStatus2.setText("Currently No Orders found");
         itemPanel2.add(orderStatus2);
-        orderStatus2.setBounds(450, 150, 260, 20);
+
+        orderStatus2.setBounds(440, 130, 260, 70);
 
         OrderStatusLabel1.setFont(new Font("Segoe UI", 1, 13)); 
         OrderStatusLabel1.setText("Order Status:");
@@ -408,7 +419,7 @@ public class Orders extends JPanel {
         CancelOrderBtn2.setBackground(new Color(220, 28, 28));
         CancelOrderBtn2.setFont(new Font("Tahoma", 1, 13)); 
         CancelOrderBtn2.setForeground(new Color(255, 255, 255));
-        CancelOrderBtn2.setIcon(new ImageIcon(getClass().getResource("/test/images/close.png"))); 
+        CancelOrderBtn2.setIcon(new ImageIcon(getClass().getResource("/images/close.png"))); 
         CancelOrderBtn2.setText("Cancel Order");
         CancelOrderBtn2.setFocusable(false);
         CancelOrderBtn2.addActionListener(new ActionListener() {
@@ -720,6 +731,8 @@ public class Orders extends JPanel {
             case 1 -> {
                 ProccessingPanel.add(itemPanel1);
                 orderStatus1.setForeground(new Color(51, 153, 0));
+                orderStatus1.setIcon(null);
+                orderStatus1.setText("pending");
                 CancelOrderBtn1.setEnabled(true);
                 CancelOrderBtn1.setVisible(true);
                 payBtn.setEnabled(true);
@@ -728,11 +741,14 @@ public class Orders extends JPanel {
                 ProccessingPanel.remove(itemPanel1);
                 DeliveredPanel.add(itemPanel1);
                 payBtn.setEnabled(true);
+                orderStatus1.setText("");
+                orderStatus1.setIcon(new ImageIcon(getClass().getResource("/images/delivered.png")));
             }
             case 3 -> {
                 ProccessingPanel.remove(itemPanel1);
                 DeliveredPanel.remove(itemPanel1);
-                orderStatus1.setText("cancelled");
+                orderStatus1.setText("");
+                orderStatus1.setIcon(new ImageIcon(getClass().getResource("/images/cancelled.png")));
                 orderStatus1.setForeground(Color.RED);
                 CancelOrderBtn1.setEnabled(false);
             }
@@ -748,19 +764,25 @@ public class Orders extends JPanel {
             case 1 -> {
                 ProccessingPanel.add(itemPanel2);
                 orderStatus2.setForeground(new Color(51, 153, 0));
+                orderStatus2.setIcon(null);
+                orderStatus2.setText("pending");
                 CancelOrderBtn2.setEnabled(true);
                 CancelOrderBtn2.setVisible(true);
                 payBtn.setEnabled(true);
+                orderStatus2.setIcon(null);
             }
             case 2 -> {
                 ProccessingPanel.remove(itemPanel2);
                 DeliveredPanel.add(itemPanel2);
                 payBtn.setEnabled(true);
+                orderStatus2.setText("");
+                orderStatus2.setIcon(new ImageIcon(getClass().getResource("/images/delivered.png")));
             }
             case 3 -> {
                 ProccessingPanel.remove(itemPanel2);
                 DeliveredPanel.remove(itemPanel2);
-                orderStatus2.setText("cancelled");
+                orderStatus2.setIcon(new ImageIcon(getClass().getResource("/images/cancelled.png")));
+                orderStatus2.setText("");
                 orderStatus2.setForeground(Color.RED);
                 CancelOrderBtn2.setEnabled(false);
                 payBtn.setEnabled(false);
@@ -781,14 +803,19 @@ public class Orders extends JPanel {
             case 1 -> {
                 CancelledPanel.remove(itemPanel2);
                 DeliveredPanel.remove(itemPanel2);
+                orderStatus2.setText("pending");
+                orderStatus2.setIcon(null);
             }
             case 2 -> {
                 CancelledPanel.remove(itemPanel2);
                 ProccessingPanel.remove(itemPanel2);
+                orderStatus2.setText("");
+                orderStatus2.setIcon(new ImageIcon(getClass().getResource("/images/delivered.png")));
             }
             case 3 -> {
                 CancelledPanel.add(itemPanel2);
-                orderStatus2.setText("order cancelled");
+                orderStatus2.setText("");
+                orderStatus2.setIcon(new ImageIcon(getClass().getResource("/images/cancelled.png")));
                 orderStatus2.setForeground(Color.RED);
                 orderNo2.setText(v[0]);
                 price2.setText(v[2]);
@@ -807,13 +834,20 @@ public class Orders extends JPanel {
         switch (burgerStatus) {
             case 1 -> {
                 CancelledPanel.remove(itemPanel1);
+                DeliveredPanel.remove(itemPanel1);
+                orderStatus1.setText("pending");
+                orderStatus1.setIcon(null);
             }
             case 2 -> {
                 CancelledPanel.remove(itemPanel1);
+                ProccessingPanel.remove(itemPanel1);
+                orderStatus1.setText("");
+                orderStatus1.setIcon(new ImageIcon(getClass().getResource("/images/delivered.png")));
             }
             case 3 -> {
                 CancelledPanel.add(itemPanel1);
-                orderStatus1.setText("order cancelled!");
+                orderStatus1.setText("");
+                orderStatus1.setIcon(new ImageIcon(getClass().getResource("/images/cancelled.png")));
                 orderStatus1.setForeground(Color.RED);
                 orderNo1.setText(v[0]);
                 price1.setText(v[2]);
@@ -835,6 +869,8 @@ public class Orders extends JPanel {
                 CancelledPanel.remove(itemPanel2);
                 DeliveredPanel.remove(itemPanel2);
                 ProccessingPanel.add(itemPanel2);
+                orderStatus2.setIcon(null);
+                orderStatus2.setText("pending");
             }
             case 2 -> {
                 DeliveredPanel.add(itemPanel2);
@@ -847,7 +883,8 @@ public class Orders extends JPanel {
                 orderNo2.setText(v[0]);
                 price2.setText(v[2]);
                 qty2.setText(v[3]);
-//                orderStatus2.setText(v[5]);
+               orderStatus2.setText("");
+               orderStatus2.setIcon(new ImageIcon(getClass().getResource("/images/delivered.png")));
                 EstimedtedProccessingTime2.setText(v[6]);
                 CancelOrderBtn1.setVisible(false);
             }
@@ -855,6 +892,9 @@ public class Orders extends JPanel {
                 CancelledPanel.add(itemPanel2);
                 ProccessingPanel.remove(itemPanel2);
                 DeliveredPanel.remove(itemPanel2);
+                orderStatus2.setIcon(null);
+                orderStatus2.setText("");
+                orderStatus2.setIcon(new ImageIcon(getClass().getResource("/images/cancelled.png")));
             }
             default -> {
                 orderStatus2.setText("no active order found");
@@ -868,18 +908,21 @@ public class Orders extends JPanel {
                 CancelledPanel.remove(itemPanel1);
                 DeliveredPanel.remove(itemPanel1);
                 ProccessingPanel.add(itemPanel1);
+                orderStatus1.setIcon(null);
+                orderStatus1.setText("pending");
             }
             case 2 -> {
                 DeliveredPanel.add(itemPanel1);
                 CancelledPanel.remove(itemPanel1);
                 ProccessingPanel.remove(itemPanel1);
-
-                orderStatus1.setText("food already delivered");
                 orderStatus1.setForeground(Color.GREEN);
                 orderNo1.setText(v[0]);
                 price1.setText(v[2]);
                 qty1.setText(v[3]);
-//                orderStatus1.setText(v[5]);
+
+                orderStatus1.setText("");
+                orderStatus1.setIcon(new ImageIcon(getClass().getResource("/images/delivered.png")));
+
                 EstimedtedProccessingTime1.setText(v[6]);
                 CancelOrderBtn1.setVisible(false);
             }
@@ -887,6 +930,8 @@ public class Orders extends JPanel {
                 CancelledPanel.add(itemPanel1);
                 ProccessingPanel.remove(itemPanel1);
                 DeliveredPanel.remove(itemPanel1);
+                orderStatus2.setText("");
+                orderStatus2.setIcon(new ImageIcon(getClass().getResource("/images/cancelled.png")));
             }
             default -> {
                 orderStatus1.setText("no active order found");
@@ -955,6 +1000,7 @@ public class Orders extends JPanel {
     private void BackBtnActionPerformed(ActionEvent evt) {
         this.setVisible(false);
         Frame.Menu.setVisible(true);
+        Frame.Menu.authCheckAndSetLogoutBtn();
 //        ProccessingBtn.setBackground(defaultColor);
 //        DeliveredBtn.setBackground(defaultColor);
 //        CanceledBtn.setBackground(defaultColor);

@@ -127,7 +127,7 @@ public class FoodMenu extends JPanel {
         itemPanel2.add(qtyPlus2);
         qtyPlus2.setBounds(10, 290, 50, 30);
 
-        itemIcon2.setIcon(new ImageIcon(getClass().getResource("/test/images/foods/pizza.jpg"))); 
+        itemIcon2.setIcon(new ImageIcon(getClass().getResource("/images/foods/pizza.jpg"))); 
         itemIcon2.setText("a");
         itemPanel2.add(itemIcon2);
         itemIcon2.setBounds(10, 0, 250, 230);
@@ -163,6 +163,8 @@ public class FoodMenu extends JPanel {
         itemPanel2.setBounds(320, 110, 270, 330);
 
         backBtn.setText("Back");
+        backBtn.setFocusable(false);
+        backBtn.setIcon(new ImageIcon(getClass().getResource("/images/back.png")));
         backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backBtnActionPerformed(evt);
@@ -221,7 +223,7 @@ public class FoodMenu extends JPanel {
         itemPanel1.add(qtyPlus1);
         qtyPlus1.setBounds(10, 290, 50, 30);
 
-        itemIcon1.setIcon(new ImageIcon(getClass().getResource("/test/images/foods/burger.jpg"))); 
+        itemIcon1.setIcon(new ImageIcon(getClass().getResource("/images/foods/burger.jpg"))); 
         itemIcon1.setText("a");
         itemPanel1.add(itemIcon1);
         itemIcon1.setBounds(10, 10, 250, 210);
@@ -256,7 +258,7 @@ public class FoodMenu extends JPanel {
         add(itemPanel1);
         itemPanel1.setBounds(30, 110, 270, 330);
 
-        FoodmenuImage.setIcon(new ImageIcon(getClass().getResource("/test/images/food-menu-bg.jpg"))); 
+        FoodmenuImage.setIcon(new ImageIcon(getClass().getResource("/images/food-menu-bg.jpg"))); 
         add(FoodmenuImage);
         FoodmenuImage.setBounds(0, 60, 1290, 720);
 
@@ -334,6 +336,7 @@ public class FoodMenu extends JPanel {
     private void backBtnActionPerformed(ActionEvent evt) {
         this.setVisible(false);
         Frame.Menu.setVisible(true);
+        Frame.Menu.authCheckAndSetLogoutBtn();
     }
 
     private void qtyPlus2MouseClicked(MouseEvent evt) {

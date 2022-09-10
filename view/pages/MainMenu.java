@@ -24,8 +24,10 @@ public class MainMenu extends JPanel {
 
    
    private JButton Exit;
+   private JButton LogOut;
    private JButton FoodMenu;
    private JPanel Header;
+   private JLabel logoLabel;
    private JLabel MainMenuBG;
    private JButton OrdersBtn;
    private JLabel MenuLebel;
@@ -45,14 +47,16 @@ public class MainMenu extends JPanel {
         FoodMenu = new JButton();
         OrdersBtn = new JButton();
         Exit = new JButton();
+        LogOut = new JButton();
         Header = new JPanel();
+        logoLabel = new JLabel();
         MenuLebel = new JLabel();
         MainMenuBG = new JLabel();
 
         setPreferredSize(new Dimension(1280, 720));
         setLayout(null);
 
-        FoodMenu.setIcon(new ImageIcon(getClass().getResource("/test/images/place order.png"))); 
+        FoodMenu.setIcon(new ImageIcon(getClass().getResource("/images/place order.png"))); 
         FoodMenu.setText("Food Menu");
         FoodMenu.setFocusable(false);
         FoodMenu.addActionListener(new ActionListener() {
@@ -63,7 +67,7 @@ public class MainMenu extends JPanel {
         add(FoodMenu);
         FoodMenu.setBounds(520, 160, 240, 50);
 
-        OrdersBtn.setIcon(new ImageIcon(getClass().getResource("/test/images/View Bills & Order Placed Details.png"))); 
+        OrdersBtn.setIcon(new ImageIcon(getClass().getResource("/images/View Bills & Order Placed Details.png"))); 
         OrdersBtn.setText("Orders");
         OrdersBtn.setFocusable(false);
         OrdersBtn.addActionListener(new ActionListener() {
@@ -74,7 +78,13 @@ public class MainMenu extends JPanel {
         add(OrdersBtn);
         OrdersBtn.setBounds(520, 230, 240, 50);
 
-        Exit.setIcon(new ImageIcon(getClass().getResource("/test/images/exit.png"))); 
+
+
+
+        
+        
+        
+        Exit.setIcon(new ImageIcon(getClass().getResource("/images/exit.png"))); 
         Exit.setText("Exit");
         Exit.setFocusable(false);
         Exit.addActionListener(new ActionListener() {
@@ -84,26 +94,57 @@ public class MainMenu extends JPanel {
         });
         add(Exit);
         Exit.setBounds(520, 300, 240, 50);
+        
+        authCheckAndSetLogoutBtn();
+        
+        LogOut.setIcon(new ImageIcon(getClass().getResource("/images/logout.png"))); 
+        LogOut.setText("Logout");
+        LogOut.setFocusable(false);
+        LogOut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                LogoutActionPerformed(evt);
+            }
 
-        Header.setBackground(new Color(51, 51, 51));
+           
+        });
+        add(LogOut);
+        LogOut.setBounds(520, 370, 240, 50);
+
+
+
+
+
+        Header.setBackground(Color.white);
         Header.setLayout(null);
 
         MenuLebel.setFont(new Font("Gadugi", 1, 18)); 
-        MenuLebel.setForeground(new Color(204, 204, 255));
+        MenuLebel.setForeground(Color.BLACK);
         MenuLebel.setText("Main Menu");
         Header.add(MenuLebel);
-        MenuLebel.setBounds(610, 40, 120, 40);
+        MenuLebel.setBounds(610, 30, 120, 40);
 
         add(Header);
-        Header.setBounds(-20, -30, 1300, 90);
+        Header.setBounds(-20, -30, 1300, 80);
 
-        MainMenuBG.setIcon(new ImageIcon(getClass().getResource("/test/images/pureBG.png"))); 
+       
+        logoLabel.setIcon(new ImageIcon(getClass().getResource("/images/logo-filled.png")));
+        Header.add(logoLabel);
+        logoLabel.setBounds(20, 30, 340, 50);
+
+        MainMenuBG.setIcon(new ImageIcon(getClass().getResource("/images/pureBG.png"))); 
         add(MainMenuBG);
         MainMenuBG.setBounds(0, 0, 1280, 770);
         
         
     }
 
+    public void authCheckAndSetLogoutBtn(){
+        if(Orders.Auth){
+            LogOut.setVisible(true);
+        }else{
+            LogOut.setVisible(false);
+        }
+    }
 
     private void FoodMenuActionPerformed(ActionEvent evt) {
         setVisible(false);
@@ -123,8 +164,14 @@ public class MainMenu extends JPanel {
             
     }
 
-    private void ExitActionPerformed(ActionEvent evt) {
+    private void ExitActionPerformed(ActionEvent evt) { 
         System.exit(0);
+    }
+
+    private void LogoutActionPerformed(ActionEvent evt) {
+        Orders.setAuth(false);
+        LogOut.setVisible(false);
+        JOptionPane.showMessageDialog(this, "You're succefully logout", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
  
     public void getOrderDatas(){
@@ -180,6 +227,7 @@ public class MainMenu extends JPanel {
       
             order.setItemAllInfos(BurgerCost, PizzaCost, BurgerQty, PizzaQty);
                 }
+                inputBuffer.close();
         } catch (FileNotFoundException ex) {
             System.out.println("getOrderDatas() "+ex);
         }
