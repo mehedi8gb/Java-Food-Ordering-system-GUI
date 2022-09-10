@@ -81,8 +81,8 @@ public class Orders extends JPanel {
     JLabel foodIcon1;
     JPanel itemPanel1;
     JPanel itemPanel2;
-    JLabel jLabel2;
-    JLabel jLabel4;
+    JLabel paymentStatusLabel;
+    JLabel ordersLabel;
     JLabel orderNo1;
     JLabel orderNo2;
     JLabel orderNoLabel;
@@ -107,7 +107,7 @@ public class Orders extends JPanel {
         orderObj = this;
 
         Header = new JPanel();
-        jLabel4 = new JLabel();
+        ordersLabel = new JLabel();
         sideBar = new JPanel();
         BackBtn = new JButton();
         ProccessingBtn = new JButton();
@@ -156,7 +156,7 @@ public class Orders extends JPanel {
         totalCostField = new JLabel();
         payBtn = new JButton();
         PaymentStatusField = new JLabel();
-        jLabel2 = new JLabel();
+        paymentStatusLabel = new JLabel();
         DeliveredPanel = new JPanel();
         DeleveredOrdersLabel = new JLabel();
         Separator1 = new JSeparator();
@@ -173,11 +173,11 @@ public class Orders extends JPanel {
         Header.setBackground(new Color(51, 51, 51));
         Header.setLayout(null);
 
-        jLabel4.setFont(new Font("Gadugi", 1, 18)); 
-        jLabel4.setForeground(new Color(204, 204, 255));
-        jLabel4.setText("Orders");
-        Header.add(jLabel4);
-        jLabel4.setBounds(620, 50, 70, 30);
+        ordersLabel.setFont(new Font("Gadugi", 1, 18)); 
+        ordersLabel.setForeground(new Color(204, 204, 255));
+        ordersLabel.setText("Orders");
+        Header.add(ordersLabel);
+        ordersLabel.setBounds(620, 50, 70, 30);
 
         add(Header);
         Header.setBounds(0, -40, 1300, 90);
@@ -465,9 +465,9 @@ public class Orders extends JPanel {
         TotalinfoPanel.add(PaymentStatusField);
         PaymentStatusField.setBounds(180, 110, 70, 20);
 
-        jLabel2.setText("Payment Status:");
-        TotalinfoPanel.add(jLabel2);
-        jLabel2.setBounds(30, 110, 120, 16);
+        paymentStatusLabel.setText("Payment Status:");
+        TotalinfoPanel.add(paymentStatusLabel);
+        paymentStatusLabel.setBounds(30, 110, 120, 16);
 
         ProccessingPanel.add(TotalinfoPanel);
         TotalinfoPanel.setBounds(830, 60, 270, 240);

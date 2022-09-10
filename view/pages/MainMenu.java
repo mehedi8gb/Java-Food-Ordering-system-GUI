@@ -98,7 +98,6 @@ public class MainMenu extends JPanel {
         Header.setBounds(-20, -30, 1300, 90);
 
         MainMenuBG.setIcon(new ImageIcon(getClass().getResource("/test/images/pureBG.png"))); 
-        MainMenuBG.setText("jLabel1");
         add(MainMenuBG);
         MainMenuBG.setBounds(0, 0, 1280, 770);
         

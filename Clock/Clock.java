@@ -15,7 +15,6 @@ public class Clock extends TimerTask
         this.obj.getCurrentTime().setText(TIME);
         this.obj.getCurrentTime1().setText(TIME);
         this.obj.getCurrentTime2().setText(TIME);
-    
     }
     public Clock(Orders o){
     this.obj = o;

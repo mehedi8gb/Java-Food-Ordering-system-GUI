@@ -14,10 +14,10 @@ import view.pages.FoodMenu;
 
 public class paymentForm extends JFrame {
 
-    private File file = new File(System.getProperty("user.dir") + "\\src\\files\\Users.txt");
-    private File ordersFile = new File(System.getProperty("user.dir") + "\\src\\files\\Orders.txt");
-    private File ordersTempFile = new File(System.getProperty("user.dir") + "\\src\\files\\Orders-temp.txt");
-    private File tempFile = new File(System.getProperty("user.dir") + "\\src\\files\\Users-Temp.txt");
+    private File file = new File(System.getProperty("user.dir") + "\\files\\Users.txt");
+    private File ordersFile = new File(System.getProperty("user.dir") + "\\files\\Orders.txt");
+    private File ordersTempFile = new File(System.getProperty("user.dir") + "\\files\\Orders-temp.txt");
+    private File tempFile = new File(System.getProperty("user.dir") + "\\files\\Users-Temp.txt");
     private static Integer ID = 0;
     private static String name, address, mobileNumber, amount,coupon, password;
     public static String userPaymentStatus = "unpaid";
@@ -258,7 +258,7 @@ public class paymentForm extends JFrame {
 
     private void addUser() {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(System.getProperty("user.dir") + "\\src\\files\\Users.txt"), true));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(System.getProperty("user.dir") + "\\files\\Users.txt"), true));
             bufferedWriter.write(ID + "," + name + "," + password + "," + mobileNumber + "," + Orders.ApplyCoupon(coupon) + "," + coupon + "," + address + "," + "unpaid" + "\n");
             bufferedWriter.close();
             System.out.println("User Added & current ID: "+ ID);

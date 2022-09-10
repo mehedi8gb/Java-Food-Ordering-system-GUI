@@ -47,7 +47,7 @@ public class FoodMenu extends JPanel {
     private JLabel itemPrice2;
     private JLabel itemQty1;
     private JLabel itemQty2;
-    private JLabel jLabel4;
+    private JLabel menuLabel;
     private JButton qtyMinus1;
     private JButton qtyMinus2;
     private JButton qtyPlus1;
@@ -68,7 +68,7 @@ public class FoodMenu extends JPanel {
         bPrice2 = new JLabel();
         backBtn = new JButton();
         Header = new JPanel();
-        jLabel4 = new JLabel();
+        menuLabel = new JLabel();
         itemPanel1 = new JPanel();
         btnOrder1 = new JButton();
         itemQty1 = new JLabel();
@@ -174,11 +174,11 @@ public class FoodMenu extends JPanel {
         Header.setBackground(new Color(51, 51, 51));
         Header.setLayout(null);
 
-        jLabel4.setFont(new Font("Gadugi", 1, 18)); 
-        jLabel4.setForeground(new Color(204, 204, 255));
-        jLabel4.setText("Food Menu");
-        Header.add(jLabel4);
-        jLabel4.setBounds(620, 40, 170, 40);
+        menuLabel.setFont(new Font("Gadugi", 1, 18)); 
+        menuLabel.setForeground(new Color(204, 204, 255));
+        menuLabel.setText("Food Menu");
+        Header.add(menuLabel);
+        menuLabel.setBounds(620, 40, 170, 40);
 
         add(Header);
         Header.setBounds(-20, -30, 1300, 90);
@@ -257,7 +257,6 @@ public class FoodMenu extends JPanel {
         itemPanel1.setBounds(30, 110, 270, 330);
 
         FoodmenuImage.setIcon(new ImageIcon(getClass().getResource("/test/images/food-menu-bg.jpg"))); 
-        FoodmenuImage.setText("jLabel6");
         add(FoodmenuImage);
         FoodmenuImage.setBounds(0, 60, 1290, 720);
 
@@ -282,6 +281,7 @@ public class FoodMenu extends JPanel {
                     MainMenu.order.getOrderNo1().setText(String.valueOf(orderNo));
                     MainMenu.order.getOrderNo2().setText(String.valueOf(orderNo));
                 }
+                bw.close();
                 System.out.println("latest Order no: " + orderNo);
             } catch (Exception ex) {
                 System.out.println(ex);

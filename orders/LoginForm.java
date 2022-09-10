@@ -12,7 +12,7 @@ public class LoginForm extends JFrame {
     private String amount;
     private String coupon;
     
-    private File file = new File(System.getProperty("user.dir") + "\\src\\files\\Users.txt");
+    private File file = new File(System.getProperty("user.dir") + "\\files\\Users.txt");
     private String password;
     private paymentForm PF;
     
